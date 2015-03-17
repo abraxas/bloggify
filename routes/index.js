@@ -7,7 +7,12 @@ var rereddit = require('rereddit');
 router.get('/', function(req, res, next) {
 	rereddit.read('bloggify').limit(25).end(function(err,posts) {
 		var data = posts.data.children;
-		res.send("<pre>" + JSON.stringify(posts,undefined,2) + "</pre>");
+		rereddit.comments("2os0fe").end(function(err,comments) {
+			console.dir(err);
+			res.send("<pre>" + JSON.stringify(data,undefined,2) + "</pre>" +
+				"<pre>" + JSON.stringify(comments,undefined,2) + "</pre>" 
+				);
+		});
 	});
 });
 
